@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Locale;
 
 public class CinemaCityTest {
     WebDriver driver;
@@ -27,12 +28,8 @@ public class CinemaCityTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        country = "PL";
-        if(country == "PL"){
-            url = "https://plstg.cci-dev.pl/";
-        }else{
-            url = "https://czstg.cci-dev.pl/";
-        }
+        // load country instance from the system properties
+        country = System.getProperty("country.instance").toUpperCase(Locale.ROOT);
     }
 
     @After
@@ -42,9 +39,13 @@ public class CinemaCityTest {
 
     @Test
     public void mainTest() throws URISyntaxException, IOException, InterruptedException {
+        if(country.contains("PL")){
+            url = "https://plstg.cci-dev.pl/";
+        }else{
+            url = "https://czstg.cci-dev.pl/";
+        }
         Path path = Paths.get(CinemaCityTest.class.getResource("email_list.txt").toURI());
-        String userEmail = (new EmailLoader(path.toString())).getRandomEmail();
-        System.out.println("test");
+        userEmail = (new EmailLoader(path.toString())).getEmail();
         driver.get(url);
         homePage = new HomePage(country,(ChromeDriver) driver);
         homePage.goToRegisterPage();

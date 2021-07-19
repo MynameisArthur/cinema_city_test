@@ -1,25 +1,33 @@
 package utility_classes;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Arrays;
+
+import static java.nio.file.Files.*;
+
 
 public class EmailLoader {
-    private static URL ResourceUtils;
-    private Scanner in;
     private String path;
     public EmailLoader(String path) {
         this.path = path;
     }
-    private String[] getAllEmails() throws IOException {
-      String rawText =  new String(Files.readAllBytes(Paths.get(path)));
-      return rawText.split("\r\n");
+    private ArrayList<String> getAllEmails() throws IOException {
+      String rawText =  new String(readAllBytes(Paths.get(path)));
+      String[] array = rawText.split("\r\n");
+      return new ArrayList<String>(Arrays.asList(array));
     }
-    public String getRandomEmail() throws IOException {
-        String[] emailList = getAllEmails();
-        return emailList[(int)Math.floor(Math.random() * emailList.length)+1];
+    private void updateListDocument(ArrayList input) throws IOException {
+        input.remove(0);
+        String newString =  String.join("\r\n", input);
+        write(Paths.get(path),input);
+    }
+    public String getEmail() throws IOException {
+        String email;
+        ArrayList<String> emailList = getAllEmails();
+        updateListDocument(emailList);
+        email = emailList.get(0);
+        return email;
     }
 }

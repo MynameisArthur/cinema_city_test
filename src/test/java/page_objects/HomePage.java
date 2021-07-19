@@ -16,7 +16,7 @@ public class HomePage {
         return driver.findElement(By.id("consent_prompt_submit"));
     }
     private void setLinkText(){
-        if(country == "PL"){
+        if(country.contains("PL")){
             link_text = "Rejestracja";
         }else{
             link_text = "Zaregistrovat se";
@@ -29,7 +29,7 @@ public class HomePage {
         cookiePopup().click();
     }
     public void goToRegisterPage() {
-        if(country == "CZ"){
+        if(country.contains("CZ")){
             closeCookie();
         }
         registerLink().click();
