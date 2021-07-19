@@ -8,6 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import static java.lang.Thread.sleep;
+
 
 public class SummaryPage {
     private ChromeDriver driver = null;
@@ -25,7 +27,8 @@ public class SummaryPage {
         long currentTime = (new Date()).getTime();
         FileUtils.copyFile(srcFile,new File("src/screenshots/screenshot_"+ currentTime +".jpg"));
     }
-    public void checkEmail() throws IOException {
+    public void checkEmail() throws IOException, InterruptedException {
+        sleep(12000);
         takeScreenshot(driver);
         Assert.assertEquals("Check if displayed email is the same as email of registered user",userEmail,
                 emailParagraph().getText());

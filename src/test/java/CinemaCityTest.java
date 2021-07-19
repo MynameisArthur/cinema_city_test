@@ -41,9 +41,9 @@ public class CinemaCityTest {
     }
 
     @Test
-    public void mainTest() throws URISyntaxException, IOException {
+    public void mainTest() throws URISyntaxException, IOException, InterruptedException {
         Path path = Paths.get(CinemaCityTest.class.getResource("email_list.txt").toURI());
-        String email = (new EmailLoader(path.toString())).getRandomEmail();
+        String userEmail = (new EmailLoader(path.toString())).getRandomEmail();
         System.out.println("test");
         driver.get(url);
         homePage = new HomePage(country,(ChromeDriver) driver);
