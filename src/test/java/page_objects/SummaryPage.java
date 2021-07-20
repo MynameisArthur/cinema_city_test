@@ -4,23 +4,20 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import static java.lang.Thread.sleep;
 
-
-public class SummaryPage {
-    private ChromeDriver driver = null;
+public class SummaryPage extends CinemaCity {
     String userEmail;
     public SummaryPage(String userEmail, ChromeDriver driver){
-        this.driver = driver;
+        super(driver);
         this.userEmail = userEmail;
     }
-    private WebElement emailParagraph(){
-        return driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]"));
-    }
+
     private void takeScreenshot(WebDriver webdriver) throws IOException {
         File srcFile = ((TakesScreenshot)webdriver).getScreenshotAs(OutputType.FILE);
         //get milliseconds from current time to concatenate to the screenshot name
@@ -28,9 +25,13 @@ public class SummaryPage {
         FileUtils.copyFile(srcFile,new File("src/screenshots/screenshot_"+ currentTime +".jpg"));
     }
     public void checkEmail() throws IOException, InterruptedException {
-        sleep(12000);
+        WebElement emailParagraph = getElement("xpath","//*[contains(text(),'"+userEmail+"')]");
+
+//        WebDriverWait wait = new WebDriverWait(driver, 12);
+//        wait.until(ExpectedConditions.presenceOfElementLocated((By) emailParagraph));
+
         takeScreenshot(driver);
         Assert.assertEquals("Check if displayed email is the same as email of registered user",userEmail,
-                emailParagraph().getText());
+                emailParagraph.getText());
     }
 }

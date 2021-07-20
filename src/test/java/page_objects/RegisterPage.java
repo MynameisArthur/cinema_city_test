@@ -1,28 +1,19 @@
 package page_objects;
 
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 
-public class RegisterPage {
-    private ChromeDriver driver = null;
+public class RegisterPage extends CinemaCity {
     private String userEmail;
     private JavascriptExecutor javascriptExecutor;
-    private WebDriver webdriver;
+
     public RegisterPage(String userEmail, ChromeDriver driver){
-        this.driver = driver;
+        super(driver);
         this.userEmail = userEmail;
         javascriptExecutor = ((JavascriptExecutor) driver);
-
     }
 
-    private WebElement getElement(String method, String locator){
-        if(method == "xpath"){
-            return driver.findElement(By.xpath(locator));
-        }
-        return driver.findElement(By.id(locator));
-    }
     private void populateInputFields(){
         getElement("id","email").sendKeys(userEmail);
         getElement("id","emailConfirmation").sendKeys(userEmail);

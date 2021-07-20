@@ -1,20 +1,17 @@
 package page_objects;
 
-import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class HomePage {
-    private ChromeDriver driver = null;
+public class HomePage extends CinemaCity {
     private String country;
     private String link_text;
+
     public HomePage(String country, ChromeDriver driver){
-        this.driver = driver;
+        super(driver);
         this.country = country;
         setLinkText();
     }
-    private WebElement cookiePopup(){
-        return driver.findElement(By.id("consent_prompt_submit"));
-    }
+
     private void setLinkText(){
         if(country.contains("PL")){
             link_text = "Rejestracja";
@@ -22,16 +19,15 @@ public class HomePage {
             link_text = "Zaregistrovat se";
         }
     }
-    private WebElement registerLink(){
-        return driver.findElement(By.partialLinkText(link_text));
-    }
+
     private void closeCookie(){
-        cookiePopup().click();
+        getElement("id", "consent_prompt_submit").click();
     }
+
     public void goToRegisterPage() {
         if(country.contains("CZ")){
             closeCookie();
         }
-        registerLink().click();
+        getElement("partialLinkText", link_text).click();
     }
 }
