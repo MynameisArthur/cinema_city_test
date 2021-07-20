@@ -1,7 +1,10 @@
 package page_objects;
 
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class RegisterPage extends CinemaCity {
@@ -20,7 +23,7 @@ public class RegisterPage extends CinemaCity {
         getElement("id","password").sendKeys("Secret_password01");
         getElement("id","firstName").sendKeys("FirstName");
         getElement("id","lastName").sendKeys("LastName");
-        //javascript code to scroll down page so checkbox can be clicked
+        //javascript code to scroll down page so checkbox and signup button can be clicked
         javascriptExecutor.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         getElement("id","termsAndConditionsConsent").click();
     }

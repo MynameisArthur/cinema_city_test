@@ -49,7 +49,7 @@
                     <version>2.22.0</version>
                     <configuration>
                         <systemPropertyVariables>
-                            <country.instance>CZ</country.instance>
+                            <country.instance>PL</country.instance>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>

@@ -22,16 +22,13 @@ public class SummaryPage extends CinemaCity {
         File srcFile = ((TakesScreenshot)webdriver).getScreenshotAs(OutputType.FILE);
         //get milliseconds from current time to concatenate to the screenshot name
         long currentTime = (new Date()).getTime();
-        FileUtils.copyFile(srcFile,new File("src/screenshots/screenshot_"+ currentTime +".jpg"));
+        FileUtils.copyFile(srcFile,new File("src/screenshots/screenshot_"+userEmail+"_"+currentTime+".jpg"));
     }
     public void checkEmail() throws IOException, InterruptedException {
-        WebElement emailParagraph = getElement("xpath","//*[contains(text(),'"+userEmail+"')]");
-
-//        WebDriverWait wait = new WebDriverWait(driver, 12);
-//        wait.until(ExpectedConditions.presenceOfElementLocated((By) emailParagraph));
-
+        WebDriverWait wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]")));
         takeScreenshot(driver);
         Assert.assertEquals("Check if displayed email is the same as email of registered user",userEmail,
-                emailParagraph.getText());
+                getElement("xpath","//*[contains(text(),'"+userEmail+"')]").getText());
     }
 }
