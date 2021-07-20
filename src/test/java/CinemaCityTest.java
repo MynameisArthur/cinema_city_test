@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import page_objects.HomePage;
 import page_objects.RegisterPage;
 import page_objects.SummaryPage;
-import utility_classes.EmailLoader;
+import utility_classes.PageLoader;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,19 +17,17 @@ import java.util.Locale;
 
 public class CinemaCityTest {
     WebDriver driver;
-    String url;
     String country;
-    String userEmail;
-    HomePage homePage;
-    RegisterPage registerPage;
-    SummaryPage summaryPage;
+    Path path;
+
     @Before
-    public void setUpClass() {
+    public void setUpClass() throws URISyntaxException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         // load country instance from the system properties
         country = System.getProperty("country.instance").toUpperCase(Locale.ROOT);
+        path = Paths.get(CinemaCityTest.class.getResource("email_list.txt").toURI());
     }
 
     @After
@@ -38,20 +36,20 @@ public class CinemaCityTest {
     }
 
     @Test
-    public void mainTest() throws URISyntaxException, IOException, InterruptedException {
-        if(country.contains("PL")){
-            url = "https://plstg.cci-dev.pl/";
-        }else{
-            url = "https://czstg.cci-dev.pl/";
-        }
-        Path path = Paths.get(CinemaCityTest.class.getResource("email_list.txt").toURI());
-        userEmail = (new EmailLoader(path.toString())).getEmail();
-        driver.get(url);
-        homePage = new HomePage(country,(ChromeDriver) driver);
+    public void mainTest() throws IOException, InterruptedException {
+        //Load page
+        PageLoader page = new PageLoader(country, path,(ChromeDriver) driver);
+        page.loadPage();
+        //Load user email
+        String userEmail = page.loadEmail();
+        //Starting page tests
+        HomePage homePage = new HomePage(country,(ChromeDriver) driver);
         homePage.goToRegisterPage();
-        registerPage = new RegisterPage(userEmail,(ChromeDriver) driver);
+        //Register page tests
+        RegisterPage registerPage = new RegisterPage(userEmail,(ChromeDriver) driver);
         registerPage.registerUser();
-        summaryPage = new SummaryPage(userEmail,(ChromeDriver) driver);
+        //Summary page tests
+        SummaryPage summaryPage = new SummaryPage(userEmail,(ChromeDriver) driver);
         summaryPage.checkEmail();
     }
 }

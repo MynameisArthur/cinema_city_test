@@ -1,11 +1,7 @@
 package page_objects;
 
-import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 
 public class RegisterPage extends CinemaCity {
     private String userEmail;
@@ -16,9 +12,11 @@ public class RegisterPage extends CinemaCity {
         this.userEmail = userEmail;
         javascriptExecutor = ((JavascriptExecutor) driver);
     }
+
     private void fillInputField(String locator, String text){
         getElement("id",locator).sendKeys(text);
     }
+
     private void populateInputFields(){
         fillInputField("email",userEmail);
         fillInputField("emailConfirmation",userEmail);
