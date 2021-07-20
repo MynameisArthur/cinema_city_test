@@ -16,13 +16,15 @@ public class RegisterPage extends CinemaCity {
         this.userEmail = userEmail;
         javascriptExecutor = ((JavascriptExecutor) driver);
     }
-
+    private void fillInputField(String locator, String text){
+        getElement("id",locator).sendKeys(text);
+    }
     private void populateInputFields(){
-        getElement("id","email").sendKeys(userEmail);
-        getElement("id","emailConfirmation").sendKeys(userEmail);
-        getElement("id","password").sendKeys("Secret_password01");
-        getElement("id","firstName").sendKeys("FirstName");
-        getElement("id","lastName").sendKeys("LastName");
+        fillInputField("email",userEmail);
+        fillInputField("emailConfirmation",userEmail);
+        fillInputField("password","Secret_password01");
+        fillInputField("firstName","FirstName");
+        fillInputField("lastName","LastName");
         //javascript code to scroll down page so checkbox and signup button can be clicked
         javascriptExecutor.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         getElement("id","termsAndConditionsConsent").click();

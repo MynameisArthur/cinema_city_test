@@ -28,6 +28,7 @@ public class SummaryPage extends CinemaCity {
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]")));
         takeScreenshot(driver);
+
         Assert.assertEquals("Check if displayed email is the same as email of registered user",userEmail,
                 getElement("xpath","//*[contains(text(),'"+userEmail+"')]").getText());
     }
