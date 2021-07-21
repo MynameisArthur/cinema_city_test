@@ -3,6 +3,10 @@ package page_objects;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+/*
+ *  Page object for register page
+ * */
+
 public class RegisterPage extends CinemaCity {
     private String userEmail;
     private JavascriptExecutor javascriptExecutor;

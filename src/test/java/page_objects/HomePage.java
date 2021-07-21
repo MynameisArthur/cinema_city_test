@@ -3,6 +3,10 @@ package page_objects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+/*
+ *  Page object for home page
+ * */
+
 public class HomePage extends CinemaCity {
     private String country;
     private String link_text;

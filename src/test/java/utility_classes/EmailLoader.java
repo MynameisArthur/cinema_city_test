@@ -7,6 +7,10 @@ import java.util.Arrays;
 
 import static java.nio.file.Files.*;
 
+/*
+* Utility class for email loading from testing data file
+* */
+
 
 public class EmailLoader {
     private String path;

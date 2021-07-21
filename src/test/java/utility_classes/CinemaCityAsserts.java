@@ -8,6 +8,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static utility_classes.MessageDisplay.message;
 
+
+/*
+* Utility class for assertions
+* */
+
+
 public class CinemaCityAsserts {
     // assertions counter used in success message displays
     int assertions = 0;

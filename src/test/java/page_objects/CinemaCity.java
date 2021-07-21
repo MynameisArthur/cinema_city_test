@@ -4,6 +4,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+
+/*
+* Super class for CinemaCity page objects
+* */
+
+
 public class CinemaCity {
     protected ChromeDriver driver = null;
     public CinemaCity(ChromeDriver driver){

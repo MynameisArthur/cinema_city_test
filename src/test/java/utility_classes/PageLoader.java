@@ -6,6 +6,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.io.IOException;
 import java.nio.file.Path;
 
+/*
+* Utility class that gets user email and loads the page
+* */
+
 public class PageLoader {
     private WebDriver driver;
     private String url;

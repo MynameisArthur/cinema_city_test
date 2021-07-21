@@ -13,6 +13,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
+/*
+ *  Page object for summary page
+ * */
+
+
 public class SummaryPage extends CinemaCity {
     String userEmail;
     public SummaryPage(String userEmail, ChromeDriver driver){
@@ -28,7 +33,10 @@ public class SummaryPage extends CinemaCity {
     }
     public void checkEmail() throws IOException, InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 60);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]")));
+        wait.until(ExpectedConditions.or(
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]")),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@class,'bg-danger')]"))
+        ));
         takeScreenshot(driver);
     }
 }
