@@ -31,11 +31,11 @@ public class SummaryPage extends CinemaCity {
         long currentTime = (new Date()).getTime();
         FileUtils.copyFile(srcFile,new File("src/screenshots/screenshot_"+userEmail+"_"+currentTime+".jpg"));
     }
-    public void checkEmail() throws IOException, InterruptedException {
+    public void checkEmail() throws IOException {
         WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.or(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]")),
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@class,'bg-danger')]"))
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(@class,'bg-danger')]")),
+                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]"))
         ));
         takeScreenshot(driver);
     }

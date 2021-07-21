@@ -6,7 +6,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static utility_classes.MessageDisplay.message;
+import static utility_classes.MessageDisplay.failureMessage;
+import static utility_classes.MessageDisplay.successMessage;
 
 
 /*
@@ -30,7 +31,7 @@ public class CinemaCityAsserts {
     public void assertRegisterLinkText(){
         assertions++;
         assertEquals("Compare link texts", linkText,driver.findElement(By.partialLinkText(linkText)).getText());
-        message(
+        successMessage(
                 "#"+assertions+". Expected Link text for the country instance " +
                         country + " is \""+linkText+"\" received \""+linkText+"\""
         );
@@ -40,16 +41,26 @@ public class CinemaCityAsserts {
         assertTrue("Register button is enabled ",driver.findElement(
                 By.xpath("//*[@data-automation-id='signup-form-submit-button']")).isEnabled()
         );
-        message("#"+assertions+". Register button is enabled");
+        successMessage("#"+assertions+". Register button is enabled");
     }
     public void assertEmailDisplayed(){
         assertions++;
-        WebElement emailParagraph = driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]"));
-        assertEquals(
-                "Check if displayed email: \"" + userEmail + "\" is the same as the one used in registration",
-                userEmail,
-                driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]")).getText()
-        );
-        message("#"+assertions+". User registration complete. Expected email: \""+userEmail+"\" received: \""+emailParagraph.getText()+"\"");
+        if(driver.findElements(By.xpath("//*[contains(text(),'"+userEmail+"')]")).size() > 0){
+            WebElement emailParagraph = driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]"));
+            assertEquals(
+                    "Check if displayed email: \"" + userEmail + "\" is the same as the one used in registration",
+                    userEmail,
+//                    driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]")).getText()
+                    emailParagraph.getText()
+            );
+            successMessage(
+                    "#"+assertions+". User registration complete. Expected email: \""+
+                            userEmail+"\" received: \""+emailParagraph.getText()+"\""
+            );
+        }else{
+            failureMessage("#"+assertions+". User registration failed! Registered user with email: \""+userEmail+"\" " +
+                    " already exists or other error occurred ");
+        }
     }
+
 }
