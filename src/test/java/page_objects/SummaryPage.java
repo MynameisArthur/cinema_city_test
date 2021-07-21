@@ -1,8 +1,10 @@
 package page_objects;
 
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -25,11 +27,8 @@ public class SummaryPage extends CinemaCity {
         FileUtils.copyFile(srcFile,new File("src/screenshots/screenshot_"+userEmail+"_"+currentTime+".jpg"));
     }
     public void checkEmail() throws IOException, InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[contains(text(),'"+userEmail+"')]")));
         takeScreenshot(driver);
-
-        Assert.assertEquals("Check if displayed email is the same as email of registered user",userEmail,
-                getElement("xpath","//*[contains(text(),'"+userEmail+"')]").getText());
     }
 }

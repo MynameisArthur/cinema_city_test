@@ -21,7 +21,7 @@ public class EmailLoader {
     public String getEmail() throws IOException {
         String email;
         ArrayList<String> emailList = getAllEmails();
-        email = emailList.get(0);
+        email = emailList.get((int) Math.floor(Math.random() * emailList.size()));
         return email;
     }
 }
