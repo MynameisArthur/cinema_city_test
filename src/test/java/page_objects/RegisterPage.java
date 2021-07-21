@@ -30,6 +30,6 @@ public class RegisterPage extends CinemaCity {
 
     public void registerUser() {
         populateInputFields();
-        getElement("xpath","//*[@data-automation-id='signup-form-submit-button']").click();
+//        getElement("xpath","//*[@data-automation-id='signup-form-submit-button']").click();
     }
 }

@@ -1,5 +1,6 @@
 package page_objects;
 
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class HomePage extends CinemaCity {
@@ -23,11 +24,11 @@ public class HomePage extends CinemaCity {
     private void closeCookie(){
         getElement("id", "consent_prompt_submit").click();
     }
-
     public void goToRegisterPage() {
         if(country.contains("CZ")){
             closeCookie();
         }
-        getElement("partialLinkText", link_text).click();
+        WebElement goToRegister = getElement("partialLinkText", link_text);
+        goToRegister.click();
     }
 }

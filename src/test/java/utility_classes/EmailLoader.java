@@ -18,15 +18,9 @@ public class EmailLoader {
       String[] array = rawText.split("\r\n");
       return new ArrayList<String>(Arrays.asList(array));
     }
-    private void updateListDocument(ArrayList input) throws IOException {
-        input.remove(0);
-        String newString =  String.join("\r\n", input);
-        write(Paths.get(path),input);
-    }
     public String getEmail() throws IOException {
         String email;
         ArrayList<String> emailList = getAllEmails();
-        updateListDocument(emailList);
         email = emailList.get(0);
         return email;
     }
