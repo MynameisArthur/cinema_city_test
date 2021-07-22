@@ -11,32 +11,36 @@ import page_objects.HomePage;
 import page_objects.RegisterPage;
 import page_objects.SummaryPage;
 import utility_classes.CinemaCityAsserts;
+import utility_classes.DataReader;
 import utility_classes.PageLoader;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Locale;
+
+
 
 public class CinemaCityTest {
     WebDriver driver;
     String country;
-    // path to test data document
-    Path path;
-    // email string retrieved from test data document used in tests
     String userEmail;
-    // text in link to register page
     String linkText;
+    PageLoader page;
+
     @Before
-    public void setUpClass() throws URISyntaxException {
+    public void setUpClass() throws URISyntaxException, IOException {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        // initialize DataReader needed as a dependency of PageLoader
+        DataReader reader = new DataReader(
+                getPath("properties/CinemaCityProps.properties")
+        );
         // load country instance from the system properties
-        country = System.getProperty("country.instance").toUpperCase(Locale.ROOT);
-        // create path to testing data document
-        path = Paths.get(CinemaCityTest.class.getResource("email_list.txt").toURI());
+        country = reader.readProjectProps("country");
+        // initialize PageLoader class
+        page = new PageLoader(reader, country, (ChromeDriver) driver);
     }
 
     @After
@@ -45,12 +49,11 @@ public class CinemaCityTest {
     }
 
     @Test
-    public void mainTest() throws IOException, InterruptedException {
-        //Load page
-        PageLoader page = new PageLoader(country, path, (ChromeDriver) driver);
-        page.loadPage();
+    public void mainTest() throws IOException, URISyntaxException {
         //Load user email
-        userEmail = page.loadEmailFromDocument();
+        userEmail = page.loadEmail();
+        //Load page
+        page.loadPage();
         //Starting page tests
         HomePage homePage = new HomePage(country,(ChromeDriver) driver);
         homePage.goToRegisterPage();
@@ -77,5 +80,7 @@ public class CinemaCityTest {
         //check if paragraph with registered user email is displayed
         ccAsserts.assertEmailDisplayed();
     }
-
+    public Path getPath(String uri) throws URISyntaxException {
+        return Paths.get(CinemaCityTest.class.getResource(uri).toURI());
+    }
 }

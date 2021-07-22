@@ -50,6 +50,7 @@
                     <configuration>
                         <systemPropertyVariables>
                             <country.instance>PL</country.instance>
+                            <props.file>CinemaCityProps.properties</props.file>
                         </systemPropertyVariables>
                     </configuration>
                 </plugin>

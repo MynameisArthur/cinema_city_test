@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.IOException;
-import java.nio.file.Path;
+import java.net.URISyntaxException;
 
 /*
 * Utility class that gets user email and loads the page
@@ -14,17 +14,16 @@ public class PageLoader {
     private WebDriver driver;
     private String url;
     private String country;
-    private Path path;
+    DataReader reader;
 
-    public PageLoader(String country,Path path, ChromeDriver driver){
+    public PageLoader(DataReader reader, String country, ChromeDriver driver){
         this.country = country;
-        this.path = path;
         this.driver = driver;
+        this.reader = reader;
     }
 
-    public String loadEmailFromDocument() throws IOException {
-        String userEmail = (new EmailLoader(path.toString(), (ChromeDriver) driver)).getEmail();
-        return userEmail;
+    public String loadEmail() throws IOException, URISyntaxException {
+        return  reader.getEmail();
     }
     public void loadPage(){
         if(country.contains("PL")){

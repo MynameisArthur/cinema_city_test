@@ -86,4 +86,4 @@ nb-configuration.xml
 ##############################
 ## CinemaCityTest
 ##############################
-src/screenshots/*.jpg
+src/screenshots/
