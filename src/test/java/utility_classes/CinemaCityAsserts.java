@@ -55,14 +55,19 @@ public class CinemaCityAsserts {
     }
     public void assertEmailDisplayed(){
         assertions++;
+        assertEquals("Assert if paragraph with registered user email is displayed",
+                true,
+                driver.findElements(By.xpath("//*[contains(text(),'" + userEmail + "')]")).size() > 0
+        );
         assertEquals(
                 "Assert if paragraph with registered user email is the same as email: \"" + userEmail + "\" used in registration.",
                 userEmail,
-                driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]"))
+                driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]")).getText()
         );
         successMessage(
                 "#"+assertions+". User registration complete. Expected email: \""+
-                        userEmail+"\" received: \""+driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')]"))+"\""
+                        userEmail+"\" received: \""+driver.findElement(By.xpath("//*[contains(text(),'"+userEmail+"')" +
+                        "]")).getText()+"\""
         );
     }
 

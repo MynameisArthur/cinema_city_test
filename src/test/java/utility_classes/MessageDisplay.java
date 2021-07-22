@@ -1,7 +1,7 @@
 package utility_classes;
 
 /*
-* Utility class with static method for displaying success/failure messages used in CinemaCityAsserts class
+* Utility class with static method for displaying success messages used in CinemaCityAsserts class
 * */
 
 public class MessageDisplay {
