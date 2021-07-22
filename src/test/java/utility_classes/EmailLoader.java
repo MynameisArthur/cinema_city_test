@@ -1,11 +1,13 @@
 package utility_classes;
 
-import java.io.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static java.nio.file.Files.*;
+import static java.nio.file.Files.readAllBytes;
 
 /*
 * Utility class for email loading from testing data file
@@ -14,8 +16,10 @@ import static java.nio.file.Files.*;
 
 public class EmailLoader {
     private String path;
-    public EmailLoader(String path) {
+    private ChromeDriver driver;
+    public EmailLoader(String path, ChromeDriver driver) {
         this.path = path;
+        this.driver = driver;
     }
     private ArrayList<String> getAllEmails() throws IOException {
       String rawText =  new String(readAllBytes(Paths.get(path)));
@@ -28,4 +32,5 @@ public class EmailLoader {
         email = emailList.get((int) Math.floor(Math.random() * emailList.size()));
         return email;
     }
+
 }

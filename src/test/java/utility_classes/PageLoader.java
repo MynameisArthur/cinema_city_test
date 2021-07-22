@@ -22,11 +22,10 @@ public class PageLoader {
         this.driver = driver;
     }
 
-    public String loadEmail() throws IOException {
-        String userEmail = (new EmailLoader(path.toString())).getEmail();
+    public String loadEmailFromDocument() throws IOException {
+        String userEmail = (new EmailLoader(path.toString(), (ChromeDriver) driver)).getEmail();
         return userEmail;
     }
-
     public void loadPage(){
         if(country.contains("PL")){
             url = "https://plstg.cci-dev.pl/";

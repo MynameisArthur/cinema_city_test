@@ -50,8 +50,7 @@ public class CinemaCityTest {
         PageLoader page = new PageLoader(country, path, (ChromeDriver) driver);
         page.loadPage();
         //Load user email
-//        userEmail = page.loadEmail();
-        userEmail = "honorata@gmail.com";
+        userEmail = page.loadEmailFromDocument();
         //Starting page tests
         HomePage homePage = new HomePage(country,(ChromeDriver) driver);
         homePage.goToRegisterPage();
@@ -59,6 +58,9 @@ public class CinemaCityTest {
         // instantiate CinemaCityAsserts utility class
         CinemaCityAsserts ccAsserts = new CinemaCityAsserts(userEmail, linkText, country,
                 (ChromeDriver) driver);
+        //check if email form is correct
+        ccAsserts.assertCorrectEmail();
+        //check if link text matches country instance
         ccAsserts.assertRegisterLinkText();
 
         //Register page tests
@@ -66,11 +68,13 @@ public class CinemaCityTest {
         registerPage.registerUser();
         WebDriverWait wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@data-automation-id='signup-form-submit-button']")));
+        //check if register button can be clicked
         ccAsserts.assertRegisterButtonEnabled();
 
         //Summary page tests
         SummaryPage summaryPage = new SummaryPage(userEmail,(ChromeDriver) driver);
         summaryPage.checkEmail();
+        //check if paragraph with registered user email is displayed
         ccAsserts.assertEmailDisplayed();
     }
 
