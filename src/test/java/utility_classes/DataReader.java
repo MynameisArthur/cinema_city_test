@@ -48,6 +48,7 @@ public class DataReader {
         Properties props = new Properties();
         FileInputStream inputStream = new FileInputStream(propsPath.toString() +"/"+ fileName);
         props.load(inputStream);
+        inputStream.close();
         return props.getProperty(property);
     }
     // method for converting regular String array to ArrayList of strings
@@ -67,5 +68,6 @@ public class DataReader {
         props.setProperty("country", countryInstance);
         props.setProperty("usedEmails", userEmailsStr);
         props.store(outputStream,null);
+        outputStream.close();
     }
 }
