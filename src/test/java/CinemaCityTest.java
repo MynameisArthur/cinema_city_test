@@ -35,10 +35,10 @@ public class CinemaCityTest {
         driver.manage().window().maximize();
         // initialize DataReader needed as a dependency of PageLoader
         DataReader reader = new DataReader(
-                getPath("properties/CinemaCityProps.properties")
+                getPath("properties")
         );
         // load country instance from the system properties
-        country = reader.readProjectProps("country");
+        country = reader.readProjectProps("country","CinemaCityProps.properties");
         // initialize PageLoader class
         page = new PageLoader(reader, country, (ChromeDriver) driver);
     }
