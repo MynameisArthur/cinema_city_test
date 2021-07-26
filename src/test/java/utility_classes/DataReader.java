@@ -38,6 +38,10 @@ public class DataReader {
         int index = 0;
         //loop over unusedEmails if duplicate email was found in usedEmails
         do{
+            //If number of used emails equals or exceed the number of unused emails break the loop
+            if(index >= usedEmails.size()){
+                return "No more emails!";
+            }
             email = unusedEmails.get(index);
             index++;
         }while(usedEmails.contains(email));
